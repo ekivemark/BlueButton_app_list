@@ -1,0 +1,32 @@
+{
+  "count": nnn,
+  "next": "https://domain.tld/.well-known/applications?page=n",
+  "previous": "https://domain.tld/.well-known/applications",
+  "publisher": {
+      "organization": "name of organization",
+      "contact_email": "application_manager@email.example",
+      "api_endpoint": "https://path_to/api_endpoint",
+      "logo_url": "https://path_to/logo_url",
+  },
+  "results": [
+{
+      "name": "application_name",
+      "website_uri": "https://domain,tld/path_to/application_url/",
+      "logo_uri": "https://path_to_logo_url/logo_filename.jpg",
+      "logo_allowed_use": ["Data Holder Only", "restricted", "public use"],
+      "tos_uri": "https://path_to/terms_of_service",
+      "policy_uri": "https://path_to/privacy_policiy",
+      "support_url": "https://path_to/support/landing_page",
+      "support_email": "Support@organization.email",
+      "support_phone_number": "support phone number",
+      "description": "1024 character plain text application description",
+      "labels": [
+        {
+          "name": "Organize \u0026 Share",
+          "slug": "organizeandshareclaims",
+          "description": "Organize \u0026 share medical information \u0026 claims"
+        }
+      ]
+    },      
+]
+}
