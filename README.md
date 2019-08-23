@@ -1,4 +1,4 @@
-# BlueButton_app_list
+# BlueButton 2.0 Application List
 Purpose: JSON schema and api specification to publish a list of approved blue button 2.0 consumer applications that connect to a data holder's HL7 FHIR endpoint.
 
 ## API Endpoint
@@ -26,17 +26,32 @@ The Schema has the following elements:
 
 Within the Results list the following elements are included:
 
-- Name: Application Name.
-- Website url: Link to website information about the application.
-- logo url: a link to a 256x256 jpg image of the application logo.
-- logo_allowed_use: identifies restrictions on the use of the logo. Data Holder use only, Restricted use or Public Use. Logos may only be published by organizations who are not the publisher of the list if the logo_allowed_use is set to "public use".
-- tos_uri: Link to the application's terms of service.
-- policy uri: Link to the application's privacy policy.
-- support uri: Link to the support page for the application (optional).
-- support email: contact email for the application. 
-- support phone number: phone number for application help desk support.
-- description: a plain text description of the application. 1024 characters.
-- labels: A list of labels that may be used to categorize the application in the publishers application lists.
+- `software_id`: A Universally Unique Identifier
+      (UUID) assigned by the client developer or software publisher.
+- `name`: Application Name
+- `client_uri`: If present, the server SHOULD display this URL to the end-user in
+      a clickable fashion.  It is RECOMMENDED that clients always send
+      this field.  The value of this field MUST point to a valid web
+      page.  The value of this field MAY be internationalized.
+- `logo_uri`: a link to a 256x256 jpg image of the application logo.
+- `logo_allowed_use`: identifies restrictions on the use of the logo. Data Holder use only, Restricted use or Public Use. Logos may only be published by organizations who are not the publisher of the list if the logo_allowed_use is set to "public use".
+- `tos_uri`: Link to the application's terms of service.
+- `privacy_uri`: Link to the application's privacy policy.
+- `contacts`: Array of strings representing ways to contact people responsible
+      for this client, typically email addresses.  The authorization
+      server MAY make these contact addresses available to end-users for
+      support requests for the client. 
+- `email`: contact email for the application. 
+- `phone_number`: phone number for application help desk support.
+- `jwks_uri`: URL string referencing the client's JSON Web Key (JWK) Set
+     [RFC7517] document, which contains the client's public keys.  The
+      value of this field MUST point to a valid JWK Set document.  These
+      keys can be used by higher-level protocols that use signing or
+      encryption.
+      - `jwt` : Array of strings containg valid JWK, JWS, or JWE.
+- `description`: a plain text description of the application. 1024 characters.
+- `labels`: A list of labels that may be used to categorize the application in the publishers application lists.
+
 
 ``` json
 {
@@ -52,14 +67,16 @@ Within the Results list the following elements are included:
   "results": [
 {
       "name": "application_name",
-      "website_uri": "https://domain,tld/path_to/application_url/",
+      "software_id": "uuid",
+      "client_uri": "https://domain,tld/path_to/application_url/",
       "logo_uri": "https://path_to_logo_url/logo_filename.jpg",
       "logo_allowed_use": ["Data Holder Only", "restricted", "public use"],
       "tos_uri": "https://path_to/terms_of_service",
       "policy_uri": "https://path_to/privacy_policiy",
-      "support_url": "https://path_to/support/landing_page",
-      "support_email": "Support@organization.email",
-      "support_phone_number": "support phone number",
+      "contacts" ["Support@organization.email","https://path_to/support/landing_page", "+1555554HELP", "123 Pleasant St. Anywhwere, WV 26505 USA"]
+      "email": "Support@organization.email",
+      "jwks_uri": "Optional. For support of highjer level signing protocols.",
+      "phone_number": "support phone number",
       "description": "1024 character plain text application description",
       "labels": [
         {
