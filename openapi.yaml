@@ -1,0 +1,93 @@
+info:
+  title: Enrolled Application Discovery
+  version: 0.0.0
+  description: standard for sharing application enrolement data
+openapi: 3.0.0
+paths:
+  /.well-known/enrolled-applications:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list'
+          description: OK
+components:
+  schemas:
+    list:
+      type: "object"
+      required:
+        - "count"
+        - "publisher"
+        - "results"
+      properties:
+        count:
+          type: integer
+        next:
+          type: string
+        previous:
+          type: string
+        publisher:
+          $ref: '#/components/schemas/publisher'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/application'
+    publisher:
+      type: "object"
+      required:
+        - "organization"
+        - "api_endpoint"
+      properties:
+        organization:
+          type: string
+        api_endpoint:
+          type: string
+        contact_email:
+          type: string
+        logo_url:
+          type: string
+    application:
+      type: "object"
+      required:
+        - "name"
+        - "description"
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        website_uri:
+          type: string
+        logo_uri:
+          type: string
+        logo_allowed_user:
+          type: string
+        tos_uri:
+          type: string
+        privacy_policy_uri:
+          type: string
+        support:
+          type: array
+          items:
+            $ref: "#/components/schemas/contact_point"
+    contact_point:
+      type: object
+      required:
+        - "system"
+        - "value"
+      properties:
+        system:
+          type: string
+          enum:
+            - "phone"
+            - "fax"
+            - "email"
+            - "pager"
+            - "url"
+            - "sms"
+            - "other"
+        value:
+          type: string
+      
