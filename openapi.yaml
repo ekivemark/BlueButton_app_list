@@ -44,10 +44,14 @@ components:
           type: string
         api_endpoint:
           type: string
-        contact_email:
-          type: string
+          format: uri
+        contacts:
+          type: array
+          items:
+            $ref: "#/components/schemas/contact_point"
         logo_url:
           type: string
+          format: uri
     application:
       type: "object"
       required:
@@ -56,19 +60,26 @@ components:
       properties:
         name:
           type: string
+          description: "Application Name"
         description:
           type: string
         website_uri:
           type: string
+          format: uri
         logo_uri:
           type: string
+          format: uri
         logo_allowed_user:
           type: string
         tos_uri:
           type: string
+          format: uri
+          description: "Link to the application's terms of service."
         privacy_policy_uri:
           type: string
-        support:
+          format: uri
+          description: "Link to the application's privacy policy."
+        contacts:
           type: array
           items:
             $ref: "#/components/schemas/contact_point"
