@@ -4,7 +4,7 @@ info:
   description: standard for sharing application enrolement data
 openapi: 3.0.0
 paths:
-  /.well-known/enrolled-applications:
+  /.well-known/public-applications:
     get:
       responses:
         '200':
@@ -42,9 +42,10 @@ components:
       properties:
         organization:
           type: string
-        api_endpoint:
-          type: string
-          format: uri
+        endpoints:
+          type: array
+          items:
+            $ref: "#/components/schemas/endpoint"
         contacts:
           type: array
           items:
@@ -63,7 +64,7 @@ components:
           description: "Application Name"
         description:
           type: string
-        website_uri:
+        uri:
           type: string
           format: uri
         logo_uri:
@@ -101,4 +102,15 @@ components:
             - "other"
         value:
           type: string
+    endpoint:
+      type: object
+      required:
+        - "name"
+        - "address"
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+          format: uri
       
